@@ -5,9 +5,12 @@ import * as logger from 'morgan';
 import bowlingRoute from './routes/bowling.route'
 
 const app = express();
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+if (process.env.NODE_ENV !== 'test') {
+    app.use(logger('combined'));
+}
 
 app.use('/api/bowling', bowlingRoute);
 

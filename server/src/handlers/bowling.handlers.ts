@@ -17,7 +17,7 @@ export const getMatch: RequestHandler = (req: Request, res: Response) => {
   const match = repository.get(matchId);
 
   if (!match) {
-    return res.send(404);
+    return res.sendStatus(404);
   }
 
   res.json(match);
@@ -43,7 +43,7 @@ export const addFrame: RequestHandler = (req: Request, res: Response) => {
     const match = repository.addFrame(matchId, frame);
     res.status(201).json(match);
   } catch (error) {
-    res.send(404);
+    res.sendStatus(404);
   }
 }
 
@@ -59,7 +59,7 @@ export const updateFrame: RequestHandler = (req: Request, res: Response) => {
     const match = repository.updateFrame(matchId, frameIndex, frame);
     res.json(match);
   } catch (error) {
-    res.send(404);
+    res.sendStatus(404);
   }
 }
 
@@ -70,5 +70,5 @@ export const deleteMatch: RequestHandler = (req: Request, res: Response) => {
   const matchId = req.params.matchId;
   repository.deleteMatch(matchId);
 
-  res.send(204);
+  res.sendStatus(204);
 }

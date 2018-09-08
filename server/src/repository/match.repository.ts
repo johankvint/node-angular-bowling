@@ -1,7 +1,7 @@
 import { Matches, Match, Frame, MathUtils } from '@shared';
 
-let matchCounter = 0;
-const matches: Matches = {};
+let matchCounter = 1;
+let matches: Matches = {};
 
 /**
  * Get all matches
