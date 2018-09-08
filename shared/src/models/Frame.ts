@@ -1,6 +1,6 @@
 export interface Frame {
     first: number;
-    second: number;
+    second?: number;
     third?: number;
     score?: number;
 }

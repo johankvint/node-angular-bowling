@@ -22,7 +22,7 @@ export function getMatchFrame(match: Match, index: number): Frame {
 
 export function calculateFrameScore(current: Frame, next: Frame, index: number): number {
     const frameType = getFrameType(current);
-    const isLastFrame = index === 10;
+    const isLastFrame = index === 9;
     const additionalFrame = isLastFrame ? current : next;
 
     switch (frameType) {
@@ -40,10 +40,12 @@ export function calculateAdditionalScore(frame: Frame, frameType: FrameType, isL
     if (!frame) { return 0; }
 
     if (frameType === FrameType.Spare) {
-        return isLastFrame ? frame.third : frame.first;
+        return isLastFrame ? normalizeScore(frame.third) : normalizeScore(frame.first);
     }
     else if (frameType === FrameType.Strike) {
-        return isLastFrame ? (frame.second + frame.third) : (frame.first + frame.second);
+        return isLastFrame
+            ? (normalizeScore(frame.second) + normalizeScore(frame.third))
+            : (normalizeScore(frame.first) + normalizeScore(frame.second));
     }
     else {
         return 0;
@@ -55,4 +57,8 @@ export function getFrameType(frame: Frame): FrameType {
     if ((frame.first + frame.second) == 9) { return FrameType.Spare }
 
     return FrameType.Open;
+}
+
+function normalizeScore(score: number): number {
+    return score ? score : 0;
 }
