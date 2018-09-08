@@ -1,10 +1,16 @@
 import { Match } from '../models/Match';
 import { FrameType, Frame } from '../models/Frame';
 
+/**
+ * Get the total score of the match
+ */
 export function getMatchScore(match: Match): number {
     return match.frames.reduce((total, frame) => total + frame.score, 0);
 }
 
+/**
+ * Calculate and update score of each frame in match
+ */
 export function updateMatchFrameScores(match: Match) {
     for (let index = 0; index < match.frames.length; index++) {
         const currentFrame = getMatchFrame(match, index);
@@ -14,12 +20,19 @@ export function updateMatchFrameScores(match: Match) {
     }
 }
 
+/**
+ * Get frame at index, null if out of bounds
+ */
 export function getMatchFrame(match: Match, index: number): Frame {
     if (index > match.frames.length) { return null; }
 
     return match.frames[index];
 }
 
+/**
+ * Calculate score of a frame
+ * Use next frame as well if Spare or Strike
+ */
 export function calculateFrameScore(current: Frame, next: Frame, index: number): number {
     const frameType = getFrameType(current);
     const isLastFrame = index === 9;
@@ -36,6 +49,9 @@ export function calculateFrameScore(current: Frame, next: Frame, index: number):
     }
 }
 
+/**
+ * Helper to calculate additional score for Spare or Strike
+ */
 export function calculateAdditionalScore(frame: Frame, frameType: FrameType, isLastFrame: boolean): number {
     if (!frame) { return 0; }
 
@@ -52,6 +68,9 @@ export function calculateAdditionalScore(frame: Frame, frameType: FrameType, isL
     }
 }
 
+/**
+ * Get FrameType of frame based on pin count in frame
+ */
 export function getFrameType(frame: Frame): FrameType {
     if (frame.first == 9) { return FrameType.Strike }
     if ((frame.first + frame.second) == 9) { return FrameType.Spare }
@@ -59,6 +78,9 @@ export function getFrameType(frame: Frame): FrameType {
     return FrameType.Open;
 }
 
+/**
+ * Helper function to normalize score to a number
+ */
 function normalizeScore(score: number): number {
     return score ? score : 0;
 }
