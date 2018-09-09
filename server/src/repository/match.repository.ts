@@ -1,4 +1,4 @@
-import { Matches, Match, Frame, MathUtils } from '@shared';
+import { Matches, Match, MatchListItem, Frame, MatchUtils } from '@shared';
 
 let matchCounter = 1;
 let matches: Matches = {};
@@ -6,9 +6,12 @@ let matches: Matches = {};
 /**
  * Get all matches
  */
-export function getAll(): Array<Match> {
+export function getAll(): Array<MatchListItem> {
     return Object.keys(matches)
-        .map(key => matches[key]);
+        .map(key => ({
+            id: key,
+            score: MatchUtils.getMatchScore(matches[key])
+        }))
 }
 
 /**
@@ -45,7 +48,7 @@ export function addFrame(matchId: number, frame: Frame): Match {
     // create a copy of the frame and add
     match.frames.push({...frame});
 
-    MathUtils.updateMatchFrameScores(match);
+    MatchUtils.updateMatchFrameScores(match);
 
     return match;
 }
@@ -59,14 +62,14 @@ export function updateFrame(matchId: number, frameIndex: number, frame: Frame): 
 
     if (!match) { throw new Error("Match not found"); }
 
-    const existingFrame = MathUtils.getMatchFrame(match, frameIndex);
+    const existingFrame = MatchUtils.getMatchFrame(match, frameIndex);
 
     if (!existingFrame) { throw new Error("Frame not found"); }
 
     // Update frame
     match.frames[frameIndex] = {...frame};
 
-    MathUtils.updateMatchFrameScores(match);
+    MatchUtils.updateMatchFrameScores(match);
 
     return match;
 }

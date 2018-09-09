@@ -1,0 +1,9 @@
+<div class="card">
+    <div class="card-body" [formGroup]="form">
+      <h5 class="card-title">Add frame</h5>
+      <input class="form-control" type="number" placeholder="First throw" formControlName="first" />
+      <input class="form-control" type="number" placeholder="Second throw" formControlName="second" />
+      <input *ngIf="showThird" class="form-control" placeholder="Third throw" type="number" formControlName="third" />
+      <a href="#" class="btn btn-primary" (click)="sendForm($event)">Send</a>
+    </div>
+</div>

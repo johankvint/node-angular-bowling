@@ -1,0 +1,17 @@
+<div *ngIf="match">
+  <h2>Match: {{match.id}}</h2>
+  <div>Current score: <app-match-score [match]="match"></app-match-score></div>
+
+  <div class="d-flex flex-wrap">
+
+    <app-frame class="frame-item" *ngFor="let frame of match.frames; let i = index"
+      [index]="i +1 "
+      [frame]="frame">
+    </app-frame>
+
+    <app-frame-form class="frame-item" *ngIf="match.frames.length < 10"
+      [showThird]="match.frames.length === 9"
+      (send)="addFrame($event)">
+    </app-frame-form>
+  </div>
+</div>
