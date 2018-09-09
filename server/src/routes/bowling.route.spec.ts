@@ -24,10 +24,10 @@ describe('Bowling', () => {
         });
     });
 
-    describe('POST /match', () => {
+    describe('POST /matches', () => {
         it('should should create a match', (done) => {
             chai.request(server)
-                .post(`${apiPath}/match`)
+                .post(`${apiPath}/matches`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(201);
                     res.body.should.be.a('object');
@@ -40,7 +40,7 @@ describe('Bowling', () => {
         });
     });
 
-    describe('POST /match/:id/frame', () => {
+    describe('POST /matches/:id/frame', () => {
         it('should should add a frame', (done) => {
             const frame: Frame = {
                 first: 2,
@@ -48,7 +48,7 @@ describe('Bowling', () => {
             }
 
             chai.request(server)
-                .post(`${apiPath}/match/1/frame`)
+                .post(`${apiPath}/matches/1/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(201);
@@ -72,7 +72,7 @@ describe('Bowling', () => {
             }
 
             chai.request(server)
-                .post(`${apiPath}/match/1/frame`)
+                .post(`${apiPath}/matches/1/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(201);
@@ -95,7 +95,7 @@ describe('Bowling', () => {
             }
 
             chai.request(server)
-                .post(`${apiPath}/match/7/frame`)
+                .post(`${apiPath}/matches/7/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(404);
@@ -105,7 +105,7 @@ describe('Bowling', () => {
         });
     });
 
-    describe('PUT /match/:id/frame/:frameId', () => {
+    describe('PUT /matches/:id/frame/:frameId', () => {
         it('should should update first frame', (done) => {
             const frame: Frame = {
                 first: 1,
@@ -113,7 +113,7 @@ describe('Bowling', () => {
             }
 
             chai.request(server)
-                .put(`${apiPath}/match/1/frame/0`)
+                .put(`${apiPath}/matches/1/frame/0`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(200);
@@ -136,7 +136,7 @@ describe('Bowling', () => {
             }
 
             chai.request(server)
-                .put(`${apiPath}/match/1/frame/7`)
+                .put(`${apiPath}/matches/1/frame/7`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(404);
@@ -160,10 +160,10 @@ describe('Bowling', () => {
         });
     });
 
-    describe('DELETE /match/:id', () => {
+    describe('DELETE /matches/:id', () => {
         it('should delete match', (done) => {
             chai.request(server)
-                .delete(`${apiPath}/match/1`)
+                .delete(`${apiPath}/matches/1`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(204);
 
@@ -173,7 +173,7 @@ describe('Bowling', () => {
 
         it('should not find deleted match', (done) => {
             chai.request(server)
-                .get(`${apiPath}/match/1`)
+                .get(`${apiPath}/matches/1`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(404);
 
