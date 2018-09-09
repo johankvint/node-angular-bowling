@@ -21,7 +21,7 @@ export function create() {
     const id = matchCounter++;
 
     const match: Match  = {
-        id,
+        id: id.toString(),
         frames: []
     };
 
