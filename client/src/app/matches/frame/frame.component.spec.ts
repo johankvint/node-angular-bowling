@@ -16,6 +16,7 @@ describe('FrameComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FrameComponent);
     component = fixture.componentInstance;
+    component.frame = { first: 2 };
     fixture.detectChanges();
   });
 
