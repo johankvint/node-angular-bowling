@@ -48,10 +48,18 @@ Build server and client separatley.
 npm run build
 ```
 
+Build Docker container
+```
+docker build -t johankvint/node-angular-bowling .
+```
+
+Run Docker container
+```
+docker run -d -p 9000:9000 johankvint/node-angular-bowling
+```
+
 ## TODO
 The idea was to create a Dockerfile and pull in the compiled server and client. Currently server build only works as a API-server and Client build only generates HTML and JavaScript but no server to serve the files. Need to update the Server part to be ablo to serve static files before they are pulled together into a docker container.
 
 * Refactor client to better components for better testability
 * Create tests for client
-* Update server to serve static content
-* Create Dockerfile and use compiled server and client

@@ -1,3 +1,5 @@
+import * as path from 'path';
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as logger from 'morgan';
@@ -12,6 +14,12 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(logger('combined'));
 }
 
+app.use(express.static('static'));
+
 app.use('/api/bowling', bowlingRoute);
+
+app.get('*', function(req, res) {
+    res.sendFile(path.join(__dirname + '/static/index.html'));
+});
 
 export default app;

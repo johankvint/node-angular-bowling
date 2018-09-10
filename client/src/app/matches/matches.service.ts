@@ -14,6 +14,10 @@ export class MatchesService {
     return this.http.get<Array<MatchListItem>>(this.API_PATH);
   }
 
+  createMatch() {
+    return this.http.post<Match>(`${this.API_PATH}`, {});
+  }
+
   getMatch(id: string) {
     return this.http.get<Match>(`${this.API_PATH}/${id}`);
   }
