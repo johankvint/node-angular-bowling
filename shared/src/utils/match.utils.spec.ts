@@ -138,7 +138,7 @@ describe('MatchUtils', () => {
             const frame2: Frame = { first: 9 };
 
             const match: Match = {
-                id: 1,
+                id: '1',
                 frames: [
                     frame1,
                     frame2
@@ -154,7 +154,7 @@ describe('MatchUtils', () => {
             const frame2: Frame = { first: 9 };
 
             const match: Match = {
-                id: 1,
+                id: '1',
                 frames: [
                     frame1,
                     frame2
@@ -173,7 +173,7 @@ describe('MatchUtils', () => {
             const frame3: Frame = { first: 2, second: 4 };
 
             const match: Match = {
-                id: 1,
+                id: '1',
                 frames: [
                     frame1,
                     frame2,
@@ -203,7 +203,7 @@ describe('MatchUtils', () => {
             const frame10: Frame = { first: 2, second: 7, third: 5 }; // 15
 
             const match: Match = {
-                id: 1,
+                id: '1',
                 frames: [
                     frame1,
                     frame2,
@@ -223,6 +223,41 @@ describe('MatchUtils', () => {
             const result = MatchUtils.getMatchScore(match);
 
             expect(result).to.equal(92);
+        });
+
+        it('should sum allmost perfect score correct', () => {
+            const frame1: Frame = { first: 8, second: 0 }; // 19
+            const frame2: Frame = { first: 8, second: 0 }; // 16
+            const frame3: Frame = { first: 8, second: 0 }; // 6
+            const frame4: Frame = { first: 8, second: 0 }; // 6
+            const frame5: Frame = { first: 8, second: 0 }; // 6
+            const frame6: Frame = { first: 8, second: 0 }; // 6
+            const frame7: Frame = { first: 8, second: 0 }; // 6
+            const frame8: Frame = { first: 8, second: 0 }; // 6
+            const frame9: Frame = { first: 8, second: 0 }; // 6
+            const frame10: Frame = { first: 1, second: 1 }; // 15
+
+            const match: Match = {
+                id: '1',
+                frames: [
+                    frame1,
+                    frame2,
+                    frame3,
+                    frame4,
+                    frame5,
+                    frame6,
+                    frame7,
+                    frame8,
+                    frame9,
+                    frame10
+                ]
+            }
+
+            MatchUtils.updateMatchFrameScores(match);
+
+            const result = MatchUtils.getMatchScore(match);
+
+            expect(result).to.equal(74);
         });
     });
 

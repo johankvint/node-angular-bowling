@@ -1,18 +1,18 @@
 process.env.NODE_ENV = 'test';
 import { Frame } from '@shared';
-import server from '../server';
+import app from '../app';
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let should = chai.should();
 
-const apiPath = '/api/bowling'
+const apiPath = '/api/bowling';
 
 chai.use(chaiHttp);
 
 describe('Bowling', () => {
     describe('GET /matches', () => {
         it('should should get no matches', (done) => {
-            chai.request(server)
+            chai.request(app)
                 .get(`${apiPath}/matches`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(200);
@@ -26,7 +26,7 @@ describe('Bowling', () => {
 
     describe('POST /matches', () => {
         it('should should create a match', (done) => {
-            chai.request(server)
+            chai.request(app)
                 .post(`${apiPath}/matches`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(201);
@@ -47,7 +47,7 @@ describe('Bowling', () => {
                 second: 4
             }
 
-            chai.request(server)
+            chai.request(app)
                 .post(`${apiPath}/matches/1/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
@@ -71,7 +71,7 @@ describe('Bowling', () => {
                 second: 2
             }
 
-            chai.request(server)
+            chai.request(app)
                 .post(`${apiPath}/matches/1/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
@@ -94,7 +94,7 @@ describe('Bowling', () => {
                 second: 2
             }
 
-            chai.request(server)
+            chai.request(app)
                 .post(`${apiPath}/matches/7/frame`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
@@ -112,7 +112,7 @@ describe('Bowling', () => {
                 second: 2
             }
 
-            chai.request(server)
+            chai.request(app)
                 .put(`${apiPath}/matches/1/frame/0`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
@@ -135,7 +135,7 @@ describe('Bowling', () => {
                 second: 2
             }
 
-            chai.request(server)
+            chai.request(app)
                 .put(`${apiPath}/matches/1/frame/7`)
                 .send(frame)
                 .end((err, res: ChaiHttp.Response) => {
@@ -148,7 +148,7 @@ describe('Bowling', () => {
 
     describe('GET /matches', () => {
         it('should get all matches', (done) => {
-            chai.request(server)
+            chai.request(app)
                 .get(`${apiPath}/matches`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(200);
@@ -162,7 +162,7 @@ describe('Bowling', () => {
 
     describe('DELETE /matches/:id', () => {
         it('should delete match', (done) => {
-            chai.request(server)
+            chai.request(app)
                 .delete(`${apiPath}/matches/1`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(204);
@@ -172,7 +172,7 @@ describe('Bowling', () => {
         });
 
         it('should not find deleted match', (done) => {
-            chai.request(server)
+            chai.request(app)
                 .get(`${apiPath}/matches/1`)
                 .end((err, res: ChaiHttp.Response) => {
                     res.should.have.status(404);
